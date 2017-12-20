@@ -102,7 +102,7 @@ void initCard(Card cards[52],Card user[13]){
 }
 
 void chooseCardSet(Card user[13]){
-	
+
 }
 
 void game(){
