@@ -20,9 +20,7 @@ void initUser(Card cards[52],Card user[13]);
 void initCard(Card cards[52],Card user[13]);
 // card and cardset
 int cardsBig(Card a, Card b);
-void chooseCardSet(Card user[13]){
-
-}
+int chooseCardSet(Card card_set[5], int n);
 // game
 void game();
 
@@ -107,16 +105,17 @@ int cardsBig(Card a, Card b){
 		return f1 > f2;
 	}
 }
-void chooseCardSet(Card card_set[5], int n){
+int chooseCardSet(Card card_set[5], int n){
     if(n == 1){
-
+		return 1;
 	}
 	else if(n == 2){
-
+		return 2;
 	}
 	else if(n == 5){
-
+		return 5;
 	}
+	else return -1;
 }
 
 // game
@@ -124,8 +123,9 @@ void game(){
 	srand(time(NULL));
 	Card all_cards[52], player1[13];
 	initCard(all_cards,player1);
-	initGame();
 	printCards(player1, 13);
 
-	chooseCardSet(player1);
+	Card now[5];
+	now[0] = player1[0];
+	printf("%d\n",chooseCardSet(now,1));
 }
