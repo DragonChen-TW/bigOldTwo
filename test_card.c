@@ -18,11 +18,21 @@ void printCards(Card cards[52],int len);
 // init
 void initUser(Card cards[52],Card user[13]);
 void initCard(Card cards[52],Card user[13]);
-// card and cardset
+// card
 int cardsBig(Card a, Card b);
-int chooseCardSet(Card card_set[5], int n);
+// cardSet
+int isPair(Card card_set[5]);
+int isStraight(Card card_set[5]);
+int isFullHouse(Card card_set[5]);
+int isFourKind(Card card_set[5]);
+int isStraightFlush(Card card_set[5]);
+int getCardSetNum(Card card_set[5], int n);
+void printCardSet(Card card_set[5], int n);
 // game
 void game();
+// testing
+void testCardSet();
+
 
 int main(int argc, char const *argv[]) {
 	game();
@@ -63,15 +73,23 @@ void createAllCard(Card cards[52]){
 void printCards(Card cards[52],int len){
 	int i;
 	for(i = 0;i < len;++i){
-		if(cards[i].flow == 'S')printf("黑 ");
-		else if(cards[i].flow == 'H')printf("紅 ");
-		else if(cards[i].flow == 'D')printf("方 ");
-		else if(cards[i].flow == 'C')printf("梅 ");
+        // char version
+		// if(cards[i].flow == 'S')printf("黑 ");
+		// else if(cards[i].flow == 'H')printf("紅 ");
+		// else if(cards[i].flow == 'D')printf("方 ");
+		// else if(cards[i].flow == 'C')printf("梅 ");
+
+        // unicode symbol version (super small)
+		if(cards[i].flow == 'S')printf(" %s ","\u2660");
+		else if(cards[i].flow == 'H')printf(" %s ","\u2665");
+		else if(cards[i].flow == 'D')printf(" %s ","\u2666");
+		else if(cards[i].flow == 'C')printf(" %s ","\u2663");
+
 		// printf("%2c ",cards[i].flow);
 	}
-	putchar('\n');
+	printf("\n");
 	for(i = 0;i < len;++i)printf("%2d ",cards[i].point);
-	putchar('\n');
+	printf("\n");
 }
 
 // init
@@ -105,17 +123,73 @@ int cardsBig(Card a, Card b){
 		return f1 > f2;
 	}
 }
-int chooseCardSet(Card card_set[5], int n){
-    if(n == 1){
+int isPair(Card card_set[5]){
+	return card_set[0].point == card_set[1].point;
+}
+int isStraight(Card card_set[5]){
+	for(int i = 1;i < 5;++i)
+		if(card_set[i].point - card_set[i - 1].point != 1)return 0;
+	return 1;
+}
+int isFullHouse(Card card_set[5]){
+	if(card_set[0].point == card_set[1].point &&
+	card_set[3].point == card_set[4].point &&
+	(card_set[2].point == card_set[1].point ||
+	card_set[2].point == card_set[3].point))
+		return 1;
+	else return 0;
+}
+int isFourKind(Card card_set[5]){
+	if(card_set[1].point == card_set[2].point &&
+	card_set[2].point == card_set[3].point &&
+	(card_set[0].point == card_set[1].point ||
+	card_set[3].point == card_set[4].point))
+		return 1;
+	else return 0;
+}
+int isStraightFlush(Card card_set[5]){
+	if(!isStraight(card_set))return 0;
+	else{
+		for(int i = 1;i < 5;++i)
+			if(card_set[i].flow != card_set[i - 1].flow)return 0;
 		return 1;
 	}
-	else if(n == 2){
-		return 2;
+}
+int getCardSetNum(Card card_set[5], int n){
+    if(n == 1)			//single
+		return 1;
+	else if(n == 2){	// pair
+		if(isPair(card_set))return 2;
 	}
 	else if(n == 5){
-		return 5;
+		if(isFullHouse(card_set))return 4;
+		else if(isFourKind(card_set))return 5;
+		else if(isStraightFlush(card_set))return 6;
+		else if(isStraight(card_set))return 3;
 	}
-	else return -1;
+
+	return -1;		// not any card_set
+}
+void printCardSet(Card card_set[5], int n){
+	printCards(card_set,n);
+
+	int num = getCardSetNum(card_set,n);
+	if(num == -1)
+		printf("None\n");
+	else if(num == 1)
+		printf("Single\n");
+	else if(num == 2)
+		printf("Pair\n");
+	else if(num == 3)
+		printf("Straight\n");
+	else if(num == 4)
+		printf("Full House\n");
+	else if(num == 5)
+		printf("Four of a kind\n");
+	else if(num == 6)
+		printf("Straight Flush\n");
+
+	printf("\n");
 }
 
 // game
@@ -125,7 +199,57 @@ void game(){
 	initCard(all_cards,player1);
 	printCards(player1, 13);
 
+	testCardSet();
+}
+
+void testCardSet(){
 	Card now[5];
-	now[0] = player1[0];
-	printf("%d\n",chooseCardSet(now,1));
+	now[0] = makeCard('C',9);
+	printCardSet(now, 1);
+
+	now[0] = makeCard('H',2);
+	now[1] = makeCard('S',2);
+	printCardSet(now, 2);
+
+	now[0] = makeCard('H',5);
+	now[1] = makeCard('S',6);
+	now[2] = makeCard('D',7);
+	now[3] = makeCard('D',8);
+	now[4] = makeCard('D',9);
+	printCardSet(now, 5);
+
+	now[0] = makeCard('H',3);
+	now[1] = makeCard('S',3);
+	now[2] = makeCard('D',11);
+	now[3] = makeCard('H',11);
+	now[4] = makeCard('D',11);
+	printCardSet(now, 5);
+
+	now[0] = makeCard('H',8);
+	now[1] = makeCard('S',8);
+	now[2] = makeCard('D',8);
+	now[3] = makeCard('H',12);
+	now[4] = makeCard('D',12);
+	printCardSet(now, 5);
+
+	now[0] = makeCard('S',9);
+	now[1] = makeCard('H',9);
+	now[2] = makeCard('D',9);
+	now[3] = makeCard('C',9);
+	now[4] = makeCard('H',5);
+	printCardSet(now, 5);
+
+	now[0] = makeCard('D',3);
+	now[1] = makeCard('S',10);
+	now[2] = makeCard('H',10);
+	now[3] = makeCard('D',10);
+	now[4] = makeCard('C',10);
+	printCardSet(now, 5);
+
+	now[0] = makeCard('D',8);
+	now[1] = makeCard('D',9);
+	now[2] = makeCard('D',10);
+	now[3] = makeCard('D',11);
+	now[4] = makeCard('D',12);
+	printCardSet(now, 5);
 }
