@@ -34,8 +34,9 @@ void game();
 void testCardSet();
 
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[]){
 	game();
+
 	return 0;
 }
 
@@ -74,16 +75,16 @@ void printCards(Card cards[52],int len){
 	int i;
 	for(i = 0;i < len;++i){
         // char version
-		// if(cards[i].flow == 'S')printf("黑 ");
-		// else if(cards[i].flow == 'H')printf("紅 ");
-		// else if(cards[i].flow == 'D')printf("方 ");
-		// else if(cards[i].flow == 'C')printf("梅 ");
+		if(cards[i].flow == 'S')printf("黑 ");
+		else if(cards[i].flow == 'H')printf("紅 ");
+		else if(cards[i].flow == 'D')printf("方 ");
+		else if(cards[i].flow == 'C')printf("梅 ");
 
         // unicode symbol version (super small)
-		if(cards[i].flow == 'S')printf(" %s ","\u2660");
-		else if(cards[i].flow == 'H')printf(" %s ","\u2665");
-		else if(cards[i].flow == 'D')printf(" %s ","\u2666");
-		else if(cards[i].flow == 'C')printf(" %s ","\u2663");
+		// if(cards[i].flow == 'S')printf(" %s ","\u2660");
+		// else if(cards[i].flow == 'H')printf(" %s ","\u2665");
+		// else if(cards[i].flow == 'D')printf(" %s ","\u2666");
+		// else if(cards[i].flow == 'C')printf(" %s ","\u2663");
 
 		// printf("%2c ",cards[i].flow);
 	}
@@ -127,6 +128,10 @@ int isPair(Card card_set[5]){
 	return card_set[0].point == card_set[1].point;
 }
 int isStraight(Card card_set[5]){
+	if(card_set[0].point == 1 && card_set[1].point == 10 && card_set[2].point == 11 &&
+	card_set[3].point == 12 && card_set[4].point == 13)
+		return 1;
+
 	for(int i = 1;i < 5;++i)
 		if(card_set[i].point - card_set[i - 1].point != 1)return 0;
 	return 1;
@@ -195,11 +200,20 @@ void printCardSet(Card card_set[5], int n){
 // game
 void game(){
 	srand(time(NULL));
+
 	Card all_cards[52], player1[13];
 	initCard(all_cards,player1);
 	printCards(player1, 13);
 
-	testCardSet();
+	char opt = getchar();
+	while(opt != 'e'){
+		printCards(player1,13);
+
+		printw("^");
+		opt = getchar();
+	}
+
+	endwin();
 }
 
 void testCardSet(){
