@@ -21,7 +21,7 @@ void initCard(Card cards[52],Card user[13]);
 // card and cardset
 int cardsBig(Card a, Card b);
 void chooseCardSet(Card user[13]){
-	
+
 }
 // game
 void game();
@@ -43,6 +43,7 @@ void swapCard(Card *a, Card *b){
 	*b = temp;
 }
 void sortCards(Card user[13]){
+    // just bubble sort
 	int i, j;
 	for(i = 12;i > 0;--i){
 		for(j = 0;j < i;++j){
@@ -106,11 +107,17 @@ int cardsBig(Card a, Card b){
 		return f1 > f2;
 	}
 }
-void chooseCardSet(Card user[13]){
-    int a = 3;
-    // testing
-}
+void chooseCardSet(Card card_set[5], int n){
+    if(n == 1){
 
+	}
+	else if(n == 2){
+
+	}
+	else if(n == 5){
+
+	}
+}
 
 // game
 void game(){
