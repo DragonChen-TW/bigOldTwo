@@ -31,7 +31,7 @@ void createAllCard(Card cards[52]){
 	for(i = 26;i < 39;++i)cards[i] = makeCard('D',i % 13 + 1);
 	for(i = 39;i < 52;++i)cards[i] = makeCard('C',i % 13 + 1);
 }
-void printCards(Card cards[52],int len){
+/*void printCards(Card cards[52],int len){
 	int i;
 	for(i = 0;i < len;++i){
         // char version
@@ -51,7 +51,7 @@ void printCards(Card cards[52],int len){
 	printf("\n");
 	for(i = 0;i < len;++i)printf("%2d ",cards[i].point);
 	printf("\n");
-}
+}*/
 
 // card and cardset
 int cardsBig(Card a, Card b){

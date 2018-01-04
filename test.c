@@ -3,20 +3,22 @@
 #include <time.h>
 #include "card.h"
 #include "game.h"
+#include "printout.h"
 
 void game();
 void testCardSet();
 
 int main(int argc, char const *argv[]) {
-
+  openWindow();/*open game */
   game();
 
   return 0;
 }
-// game hi
+// game
 void game(){
 	srand(time(NULL));
 
+  drawCardTable();
 	Card all_cards[52], player1[13];
 	initCard(all_cards,player1);
 	printCards(player1, 13);

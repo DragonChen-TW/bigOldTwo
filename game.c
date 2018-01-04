@@ -3,7 +3,7 @@
 #include "card.h"
 #include "game.h"
 
-// init hi
+// init
 void initUser(Card cards[52],Card user[13]){
 	char got[52] = {0};		// using char to simulate bool save some memory
 	for(int i = 0;i < 13;++i){

@@ -8,11 +8,11 @@ struct Card{
 };
 typedef struct Card Card;
 
-// functional tool
+// functional tool hi,
 Card makeCard(char f, int p);
 void swapCard(Card *a, Card *b);
 void sortCards(Card user[13]);
-// cards
+// cards testing
 void createAllCard(Card cards[52]);
 void printCards(Card cards[52],int len);
 // init
