@@ -13,7 +13,7 @@ int main(int argc, char const *argv[]) {
 
   return 0;
 }
-// game
+// game hi
 void game(){
 	srand(time(NULL));
 
