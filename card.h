@@ -13,7 +13,7 @@ void swapCard(Card *a, Card *b);
 void sortCards(Card user[13]);
 // cards
 void createAllCard(Card cards[52]);
-void printCards(Card cards[52],int len);
+void printCardsOld(Card cards[52],int len);
 // card
 int cardsBig(Card a, Card b);
 // cardSet

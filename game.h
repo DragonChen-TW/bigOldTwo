@@ -5,7 +5,7 @@ struct Card;
 typedef struct Card Card;
 
 // init
-void initUser(Card cards[52],Card user[13]);
-void initCard(Card cards[52],Card user[13]);
+void initUser(Card cards[52],Card user[4][13]);
+void initCard(Card cards[52],Card user[4][13]);
 
 #endif

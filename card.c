@@ -31,7 +31,7 @@ void createAllCard(Card cards[52]){
 	for(i = 26;i < 39;++i)cards[i] = makeCard('D',i % 13 + 1);
 	for(i = 39;i < 52;++i)cards[i] = makeCard('C',i % 13 + 1);
 }
-/*void printCards(Card cards[52],int len){
+void printCardsOld(Card cards[52],int len){
 	int i;
 	for(i = 0;i < len;++i){
         // char version
@@ -51,11 +51,10 @@ void createAllCard(Card cards[52]){
 	printf("\n");
 	for(i = 0;i < len;++i)printf("%2d ",cards[i].point);
 	printf("\n");
-}*/
+}
 
 // card and cardset
 int cardsBig(Card a, Card b){
-
 	if(a.point != b.point) return a.point > b.point;
 	else{
 		char big[4] = {'S','H','D','C'};
@@ -120,7 +119,7 @@ int getCardSetNum(Card card_set[5], int n){
 	return -1;		// not any card_set
 }
 void printCardSet(Card card_set[5], int n){
-	printCards(card_set,n);
+	printCardsOld(card_set,n);
 
 	int num = getCardSetNum(card_set,n);
 	if(num == -1)

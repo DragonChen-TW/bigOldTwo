@@ -19,11 +19,11 @@ void game(){
 	srand(time(NULL));
 
   drawCardTable();
-	Card all_cards[52], player1[13];
-	initCard(all_cards,player1);
-	printCards(player1, 13);
+	Card all_cards[52], player[4][13];
+	initCard(all_cards,player);
+	printCards(player[0], 13);
 
-  testCardSet();
+  // testCardSet();
 }
 
 void testCardSet(){
