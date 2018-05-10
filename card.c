@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "card.h"
-
+/*help makeingcards*/
 // functional tool
 Card makeCard(char f, int p){
 	Card temp = {.flow = f, .point = p};
